@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temporada Pets — imóveis pet-friendly rendem mais | Praia Digital</title>
+<meta name="description" content="Checklist pet-friendly para imóveis de temporada no litoral e cálculo do prêmio na diária por aceitar pets.">
+<link rel="canonical" href="https://praia.digital/temporada-pets/">
+<meta name="robots" content="index, follow">
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif}
+body{margin:0;background:#fdf4ff;color:#4a044e;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px}
+.card{background:#fff;border:1px solid #e9d5ff;border-radius:16px;padding:24px;margin-top:20px;box-shadow:0 2px 8px rgba(74,4,78,.06)}
+input{width:100%;padding:10px;border-radius:10px;border:1px solid #d8b4fe;margin-top:6px;box-sizing:border-box}
+input[type=checkbox]{width:auto;margin-right:8px}
+button{background:#a855f7;color:#fff;border:0;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:14px}
+label{display:block;padding:5px 0;font-size:15px}
+.bar{height:10px;background:#f3e8ff;border-radius:5px;margin:10px 0}
+.bar>div{height:100%;background:#a855f7;border-radius:5px;transition:width .3s}
+.btn{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:12px;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700}
+small{opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🐾 Temporada Pets</h1>
+  <p>68% das famílias brasileiras têm pet — e poucos imóveis de temporada aceitam. Transforme isso em receita.</p>
+  <div class="card">
+    <h2>Quanto vale aceitar pets?</h2>
+    <label>Diária atual (R$)<input id="d" type="number" value="350"></label>
+    <label>Ocupação anual (%)<input id="o" type="number" value="55"></label>
+    <button onclick="calc()">Calcular prêmio pet</button>
+    <p id="res"></p>
+  </div>
+  <div class="card">
+    <h2>Checklist pet-friendly</h2>
+    <div class="bar"><div id="prog" style="width:0%"></div></div>
+    <div id="ck"></div>
+    <p id="pct"></p>
+  </div>
+</div>
+<script>
+function fmt(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
+function calc(){
+  const d=+document.getElementById('d').value,o=+document.getElementById('o').value/100;
+  const premium=d*1.12*(o+0.08)*365-d*o*365;
+  document.getElementById('res').innerHTML='Aceitar pets (diária +12%, ocupação +8 p.p.) pode gerar <strong>'+fmt(premium)+' a mais por ano</strong>. Simule o cenário completo no Simulador ROI.';
+}
+const itens=['Piso frio ou vinílico (fácil limpeza)','Sem tapetes soltos','Área externa ou varanda telada','Portão/grade de proteção','Caminha e potinhos de cortesia','Regras claras no anúncio (porte, taxa)','Foto com pet no anúncio','Taxa de limpeza pet definida'];
+const ck=document.getElementById('ck');
+itens.forEach(t=>{ck.innerHTML+='<label><input type="checkbox" onchange="prog()">'+t+'</label>';});
+function prog(){
+  const b=ck.querySelectorAll('input');let n=0;b.forEach(x=>{if(x.checked)n++});
+  document.getElementById('prog').style.width=Math.round(n/b.length*100)+'%';
+  document.getElementById('pct').textContent=Math.round(n/b.length*100)+'% pet-ready'+(n===b.length?' — seu imóvel está pronto para pets! 🐶':'');
+}
+</script>
+<a class="btn" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a>
+<a class="btn" href="https://praiadigital.github.io/area-anfitriao/">Área do Anfitrião</a>
+<a class="btn" href="https://praiadigital.github.io/plano-90dias/">Plano 90 Dias</a>
+<hr style="margin:40px 0 20px;border:none;border-top:1px solid #e9d5ff">
+<nav style="font-size:.95em;text-align:center;padding:0 16px 32px;color:#7e22ce">
+<strong>Rede Praia Digital:</strong><br>
+<a style="color:#7e22ce" href="https://praia.digital/">Praia Digital</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/apps/">Todos os apps</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/area-anfitriao/">Área do Anfitrião</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/plano-90dias/">Plano 90 Dias</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/ferramentas/">Ferramentas</a> ·
+<a style="color:#7e22ce" href="https://praiadigital.github.io/blog-litoral/">Blog</a>
+</nav>
+</body>
+</html>
